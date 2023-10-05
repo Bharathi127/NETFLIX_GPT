@@ -1,21 +1,83 @@
 import React from 'react'
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
+import { Validation, Validation1 } from '../utils/Validation'
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile,onAuthStateChanged} from "firebase/auth";
+import { auth } from '../utils/Firebase';
+import { useNavigate } from 'react-router-dom';
+import LogoHeader from './LogoHeader';
+import { useDispatch } from 'react-redux';
+import { adduser,removeUser } from '../utils/UserSlice';
 const Header = () => {
+    const dispatch=useDispatch()
     const [formdata, setFormData] = useState(false)
+    const [message, setMessage] = useState('')
+    const navigate = useNavigate()
+    const email = useRef(null)
+    const password = useRef(null)
+    const name = useRef(null)
     const changeFormName = () => {
         setFormData(true)
     }
+    
+    
     const formDataSubmited = (e) => {
+        console.log(email.current.value)
         e.preventDefault()
+        if (formdata) {
+            const message = Validation(name.current.value, email.current.value, password.current.value)
+            setMessage(message)
+        }
+        else {
+
+            const message = Validation1(email.current.value, password.current.value)
+            setMessage(message)
+        }
+
+        if (message) return;
+        if (formdata) {
+            createUserWithEmailAndPassword(auth, email.current.value, password.current.value)
+                .then((userCredential) => {
+
+                    const user = userCredential.user;
+                    console.log(user)
+                    updateProfile(user, {
+                        displayName: name.current.value
+                    }).then(() => {
+                        const {uid,email,displayName} = auth.currentUser;
+                        dispatch(adduser({uid:uid,email:email,displayName:displayName}))
+                     
+                    }).catch((error) => {
+                        setMessage(error.message)
+                    });
+
+
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    setMessage(errorMessage)
+                });
+        }
+        else {
+
+            signInWithEmailAndPassword(auth, email.current.value, password.current.value)
+                .then((userCredential) => {
+
+                    const user = userCredential.user;
+                   
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    setMessage(errorMessage)
+                });
+        }
+
     }
 
     return (
         <div>
-
-            <img
-                className='absolute w-44 bg-gradient-to-b from-black my'
-                src='https://cdn.cookielaw.org/logos/dd6b162f-1a32-456a-9cfe-897231c7763c/4345ea78-053c-46d2-b11e-09adaef973dc/Netflix_Logo_PMS.png'
-                alt='logo' />
+            <LogoHeader />
             <form onSubmit={formDataSubmited}
                 className='absolute my-24 mx-auto right-0 left-0 bg-black p-8 w-3/12 text-white bg-opacity-80 '>
                 {formdata ?
@@ -23,19 +85,24 @@ const Header = () => {
                     : <h2 className='font-bold text-3xl mb-2'>Sign In</h2>
                 }
                 {formdata ?
-                    <input
+                    <input ref={name}
                         type="text"
                         placeholder='Full Name'
-                        className='w-full my-3 p-2 bg-gray-800  ml-1 mr-2' />
+                        className='w-full my-3 p-2 bg-gray-800  ml-1 mr-2'
+                        autoFocus />
                     : ''}
-                <input
+                <input ref={email}
                     type="text"
                     placeholder='Email Address'
-                    className='w-full my-3 p-2 bg-gray-800  ml-1 mr-2' />
-                <input
+                    className='w-full my-3 p-2 bg-gray-800  ml-1 mr-2'
+                    autoFocus />
+
+                <input ref={password}
                     type="password"
                     placeholder='Password'
-                    className='w-full my-3 p-2 bg-gray-800 ml-1 mr-2' />
+                    className='w-full my-3 p-2 bg-gray-800 ml-1 mr-2'
+                />
+                <span className='text-red-600 realtive text-lg'>{message}</span>
                 {formdata ?
                     <button
                         className='w-full bg-orange-500 my-6 ml-1 p-2 rounded-lg text-lg'>Sign Up
@@ -48,7 +115,7 @@ const Header = () => {
                 <div className='text-gray-400'>
                     <input type="checkbox" className='ml-3'></input>
                     <span className='ml-1'>Remember me</span>
-                    <span className='ml-16 hover:underline'><a href='#'>Need help?</a></span>
+                    <span className='ml-14 hover:underline'><a href='#'>Need help?</a></span>
                 </div>
                 {formdata ? '' :
                     <div className='mt-10'>
