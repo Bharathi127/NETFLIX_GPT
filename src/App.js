@@ -5,7 +5,7 @@ import {BrowserRouter,Routes,Route} from 'react-router-dom'
 import './App.css'
 const App = () => {
 return (
-    <div>
+    <div className=''>
      <BrowserRouter>
       
       <Routes>
