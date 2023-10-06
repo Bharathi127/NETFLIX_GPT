@@ -11,3 +11,26 @@ export const OPTIONS={
   };
 
   export const IMGURL="https://image.tmdb.org/t/p/w500"
+
+  export const lang={
+    English:{
+      identity:"search",
+      placeholderdata:"which movie you would like to watchh today?"
+    },
+    Hindi:{
+      identity:"खोज",
+      placeholderdata:"आज आप कौन सी फिल्म देखना चाहेंगे?"
+    },
+    spanish:{
+      identity:"buscar",
+      placeholderdata:"¿Qué película te gustaría ver hoy?"
+    },
+    Telugu:{
+      identity:"వెతుకు",
+      placeholderdata:"ఈ రోజు మీరు ఏ సినిమా చూడాలనుకుంటున్నారు?"
+    },
+    Tamil:{
+      identity:"தேட்டம்",
+      placeholderdata:"இன்று நீங்கள் எந்த படத்தை எடுக்க விரும்புகிறீர்கள்?"
+    }
+  }

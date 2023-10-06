@@ -1,15 +1,23 @@
 import CustomHooks from '../hooks/useFetchingData'
 import LogoHeader from './LogoHeader'
 import MainContainer from './MainContainer'
+import SearchButton from './SearchButton'
 import SecondContainer from './SecondContainer'
-
+import { useSelector } from 'react-redux'
 const Browse = () => {
-   CustomHooks.useFetchingData()
+  const { showSearchbtn } = useSelector(state => state.button)
+  CustomHooks.useFetchingData()
+
   return (
     <div>
       <LogoHeader />
-      <MainContainer/>
-      <SecondContainer/>
+      {showSearchbtn ?
+        <SearchButton /> :
+        <>
+          <MainContainer />
+          <SecondContainer />
+        </>
+      }
     </div>
   )
 }
