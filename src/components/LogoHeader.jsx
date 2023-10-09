@@ -9,6 +9,8 @@ import { adduser } from '../utils/UserSlice';
 import { LOGO } from '../utils/Constants';
 import { ClickonBtn } from '../utils/SearchToggleSlice'
 import { changeLang } from '../utils/LanguageSlice'
+import Home from './Home';
+import GPTSearch from './GPTSearch';
 const LogoHeader = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
@@ -44,9 +46,10 @@ const LogoHeader = () => {
         dispatch(changeLang(e.target.value))
     }
     return (
-        <div className='absolute flex justify-between z-10 w-screen bg-gradient-to-b from-black'>
+        <div className={user?'flex justify-between z-10 w-screen bg-gradient-to-b from-black absolute'
+        :'flex justify-between z-10 w-screen bg-gradient-to-b from-black fixed'}>
 
-            <div className='w-screen'>
+            <div className='w-screen '>
                 <img
                     className=' w-44'
                     src={LOGO}
@@ -54,7 +57,7 @@ const LogoHeader = () => {
             </div>
             {user && showSearchbtn &&
                 <div>
-                    <select className='my-6 py-1 px-3 mr-4 bg-black text-white cursor-pointer' onChange={changeLanguage}>
+                    <select className='my-6 py-1 px-3 mr-4 bg-black text-white cursor-pointer hover:bg-purple-700' onChange={changeLanguage}>
                         <option value="English">English</option>
                         <option value="Hindi">Hindi</option>
                         <option value="spanish">spanish</option>
@@ -65,7 +68,7 @@ const LogoHeader = () => {
             }
             {user && <div>
                 <button className='text-lg mr-60 my-6 py-1 px-3 rounded-lg bg-purple-700 text-white' onClick={eventHandler}>
-                    {showSearchbtn ? "Home" : "GptSearch"}</button>
+                    {showSearchbtn ? <Home/> : <GPTSearch/>}</button>
             </div>
             }
             {user && <div className='absolute top-0 right-0 my-4 font-bold mr-10 text-lg  flex ml-5'>

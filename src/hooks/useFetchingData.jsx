@@ -7,7 +7,7 @@ function useFetchingData(){
   const getNewMoviesData = async() => {
    const data=await fetch('https://api.themoviedb.org/3/movie/now_playing?page=1', OPTIONS)
      const json=await data.json();
-     console.log("now",json.results)
+     //console.log("now",json.results)
      dispatch(addNowplayingMovies(json.results))
   }
   useEffect(()=>{
@@ -18,7 +18,7 @@ function useFetchingData(){
 function useFecthingTrailer(id){
     const dispatch=useDispatch()
     const getTrailer=async()=>{
-        const data= await fetch(`https://api.themoviedb.org/3/movie/${id}/videos`,OPTIONS)
+        const data= await fetch("https://api.themoviedb.org/3/movie/"+id+"/videos?language=en-US",OPTIONS)
         const json=await data.json();
          console.log(json.results)
         dispatch(MainTrailer(json.results))
@@ -33,7 +33,7 @@ function useNowPopularMovies(){
     const getPopular=async()=>{
         const data=await fetch('https://api.themoviedb.org/3/movie/popular',OPTIONS)
         const json=await data.json()
-        console.log("popular",json.results)
+        //console.log("popular",json.results)
         dispatch(addNowPopularMovies(json.results))
     }
     useEffect(()=>{
@@ -46,7 +46,7 @@ function useTopRatedMovies(){
     const getTopRated=async()=>{
         const data=await fetch('https://api.themoviedb.org/3/movie/top_rated',OPTIONS)
         const json=await data.json()
-        console.log("toprated",json.results)
+        //console.log("toprated",json.results)
          dispatch(addNowTopRatedMovies(json.results))
     }
     useEffect(()=>{

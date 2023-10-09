@@ -7,6 +7,7 @@ export const OPTIONS={
     headers: {
       accept: 'application/json',
       Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4M2JmMTBkYmE4NGU4ZGExNjAyZWQwNmM3NzY5NzZhNCIsInN1YiI6IjY1MWM1ODY1YzUwYWQyMDBlYWJmZWVkNiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.znCoS2oVTYQxrClGv7HchjeRH8ozkiBbGiKxy6y74jQ'
+      //Authorization: "Bearer " + process.env.REACT_APP_TMDB_KEY,
     }
   };
 
@@ -15,7 +16,7 @@ export const OPTIONS={
   export const lang={
     English:{
       identity:"search",
-      placeholderdata:"which movie you would like to watchh today?"
+      placeholderdata:"which movie you would like to watch today?"
     },
     Hindi:{
       identity:"खोज",
@@ -34,3 +35,5 @@ export const OPTIONS={
       placeholderdata:"இன்று நீங்கள் எந்த படத்தை எடுக்க விரும்புகிறீர்கள்?"
     }
   }
+
+  export const API_KEY="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"

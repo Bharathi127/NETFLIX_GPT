@@ -21,7 +21,7 @@ const Header = () => {
     
     
     const formDataSubmited = (e) => {
-        console.log(email.current.value)
+        //console.log(email.current.value)
         e.preventDefault()
         if (formdata) {
             const message = Validation(name.current.value, email.current.value, password.current.value)
@@ -39,7 +39,7 @@ const Header = () => {
                 .then((userCredential) => {
 
                     const user = userCredential.user;
-                    console.log(user)
+                    //console.log(user)
                     updateProfile(user, {
                         displayName: name.current.value
                     }).then(() => {
@@ -79,7 +79,7 @@ const Header = () => {
         <div>
             <LogoHeader />
             <form onSubmit={formDataSubmited}
-                className='absolute my-24 mx-auto right-0 left-0 bg-black p-8 w-3/12 text-white bg-opacity-80 '>
+                className='fixed my-20 mx-auto right-0 left-0 bg-black p-6 w-3/12 text-white bg-opacity-80 '>
                 {formdata ?
                     <h2 className='font-bold text-3xl mb-2'>Sign Up</h2>
                     : <h2 className='font-bold text-3xl mb-2'>Sign In</h2>
@@ -115,17 +115,17 @@ const Header = () => {
                 <div className='text-gray-400'>
                     <input type="checkbox" className='ml-3'></input>
                     <span className='ml-1'>Remember me</span>
-                    <span className='ml-14 hover:underline'><a href='#'>Need help?</a></span>
+                    <span className='ml-10 hover:underline'><a href='#'>Need help?</a></span>
                 </div>
                 {formdata ? '' :
-                    <div className='mt-10'>
+                    <div className='mt-6'>
                         <span className='text-gray-400 ml-3'>New to Netflix?</span>
 
                         <span className='text-white' onClick={changeFormName}><a href='#' className='hover:underline'> Sign Up Now.</a></span>
 
                     </div>
                 }
-                <div className='ml-3 mt-3 mb-5 text-gray-400'>
+                <div className='ml-3 mt-3 mb-2 text-gray-400'>
                     <span >This page is protected by Google reCAPTCHA to ensure you're not a bot.<a href="#" className='text-white hover:underline'> Learn more.</a></span>
                 </div>
 

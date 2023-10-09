@@ -17,7 +17,7 @@ const SecondContainer = () => {
   const popular=useSelector(state=>state.movie?.nowPopularMovies)
   const topRated=useSelector(state=>state.movie?.nowTopRatedMovies)
   const upcoming=useSelector(state=>state.upcomingmovie?.upcomingMovies)
-  console.log("upcoming",upcoming)
+  //console.log("upcoming",upcoming)
   if(!movies)return;
   if(!popular)return;
   if(!topRated)return;
