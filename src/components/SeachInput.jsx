@@ -4,6 +4,7 @@ import { useSelector,useDispatch } from 'react-redux'
 import { useRef } from 'react'
 import openai from '../utils/Openai'
 import {addMoviesDataFromAI} from '../utils/FetchingDataFromAI'
+import Modal from './Modal'
 const SeachInput = (movie) => {
     const searchInput = useRef(null)
     const { language } = useSelector(state => state.lang)
@@ -17,13 +18,14 @@ const SeachInput = (movie) => {
       
 
         const json=await data.json();
+        // console.log(json.results)
         return json.results
     }
 
     const dataSubmited = async (e) => {
         e.preventDefault()
         //console.log(searchInput.current.value)
-        
+        if(searchInput.current.value){
         const Query =
         "Act as a Movie Recommendation system and suggest some movies exactly for the given query : " +
         searchInput.current.value +
@@ -34,23 +36,26 @@ const SeachInput = (movie) => {
             model: 'gpt-3.5-turbo',
           });
         const getData=data.choices?.[0]?.message?.content.split(",")
-        //console.log(getData)
+        // console.log(getData)
          const moviesdataGetFromAPI=getData.map((movie)=>searchData(movie))
         
          const tmdbData= await Promise.all(moviesdataGetFromAPI)
-         //console.log(tmdbData)
+         console.log(tmdbData)
          dispatch(addMoviesDataFromAI({getData:getData,tmdbData:tmdbData}))
          
         }
-       
+        else{
+          alert("Please enter some data here")
+        }
+    } 
     return (
         <div>
-            <div className='pt-[7%] flex justify-center '>
+            <div className=' pt-40 md:pt-[7%] flex justify-center '>
 
-                <form className='bg-black w-1/2 grid grid-cols-12 p-2 h-18 ' onSubmit={dataSubmited} >
+                <form className='bg-black md:w-1/2 grid grid-cols-12 p-2 h-18 w-[80%]' onSubmit={dataSubmited} >
                     <input type='text'
                         ref={searchInput}
-                        className='col-span-9 rounded-lg p-1 text-lg'
+                        className='col-span-9 rounded-lg p-1 md:text-lg text-sm'
                         placeholder={lang[language]?.placeholderdata}
                         autoFocus>
                     </input>

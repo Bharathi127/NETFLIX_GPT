@@ -8,8 +8,8 @@ const SearchRecomandations = () => {
   return (
     <div>
       {movieName.length>0 &&
-        <div className='bg-black mt-10 mx-14 text-lg text-white p-6 bg-opacity-90'>
-         {movieName.map((name,index)=><MovieList title={name} movies={movieDB[index]}/>)}
+        <div className='bg-black mt-10 mx-12 text-lg text-white p-6 bg-opacity-90'>
+         {movieName.map((name,index)=><MovieList  key={name.id} title={name} movies={movieDB[index]}/>)}
 
 
         </div>

@@ -1,13 +1,13 @@
 /* eslint-disable no-lone-blocks */
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import CustomHooks from '../hooks/useFetchingData'
 import VideoTrailer from './VideoTrailer'
 import VideoTitle from './VideoTitle'
 import LogoHeader from './LogoHeader'
 import TotalInformation from './TotalInformation'
-
+import TrailerNotFound from './TrailerNotFound'
 const InDeatail = () => {
    // CustomHooks.useFetchingData()
    const [data, setData] = useState('')
@@ -23,9 +23,7 @@ const InDeatail = () => {
    console.log(nowPopularMovies)
 
    useEffect(() => {
-      if (nowPlayingMovies === null) {
-         return null
-      }
+      if (nowPlayingMovies === null) return;
       else {
          {
             nowPlayingMovies.map(movie => {
@@ -39,9 +37,7 @@ const InDeatail = () => {
 
    }, [])
    useEffect(() => {
-      if (nowPopularMovies === null) {
-         return null
-      }
+      if (nowPopularMovies === null) return
       else {
          {
             nowPopularMovies.map(movie => {
@@ -55,9 +51,7 @@ const InDeatail = () => {
 
    }, [])
    useEffect(() => {
-      if (nowTopRatedMovies === null) {
-         return null
-      }
+      if (nowTopRatedMovies === null) return;
       else {
          {
             nowTopRatedMovies.map(movie => {
@@ -71,8 +65,8 @@ const InDeatail = () => {
 
    }, [])
    useEffect(() => {
-      if (upcomingMovies === null) {
-         return null
+      if (!upcomingMovies) {
+         return
       }
       else {
          {
@@ -110,12 +104,17 @@ const InDeatail = () => {
    return (
       <div>
 
-         {data.id &&
+         {data &&
             <div>
-            
-               <VideoTitle original_title={data.original_title} overview={data.overview} />
-               <VideoTrailer id={data.id} />
+               <h2 className='text-white absolute p-4 z-10 hover:underline cursor-pointer'>
+                  <Link to={'/browse'}>
+                     🔙Back to home page
+                  </Link>
+               </h2>
 
+               <VideoTitle original_title={data.original_title} overview={data.overview} />
+              
+               <VideoTrailer id={data.id} />
                <TotalInformation
                   original_language={data.original_language}
                   original_title={data.original_title}

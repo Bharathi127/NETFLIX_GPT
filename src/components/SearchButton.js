@@ -7,7 +7,7 @@ const SearchButton = () => {
         <div>
                 <div >
                     <img
-                        className='fixed -z-10 '
+                        className='w-screen fixed -z-10  h-screen object-cover '
                         src={backImg}
                         alt='' />
                 </div>

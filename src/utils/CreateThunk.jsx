@@ -7,12 +7,34 @@ const initialState = {
     errorMessage: null
 }
 
+// export const getUpcoming = createAsyncThunk('upcoming/getUpcoming', async () => {
+//     try{
+//     const data = await fetch('https://api.themoviedb.org/3/movie/upcoming',OPTIONS)
+//     const json = await data.json()
+//     console.log(json.results)
+//      return{res:json.results}
+//     }
+//     catch(error){
+//         if(!error.res){
+//             throw new Error("Network response not found")
+//         }
+//     }
+// })
 export const getUpcoming = createAsyncThunk('upcoming/getUpcoming', async () => {
-    const data = await fetch('https://api.themoviedb.org/3/movie/upcoming',OPTIONS)
-    const json = await data.json()
-    //console.log(json.results)
-     return{res:json.results}
+    try {
+        console.log(process.env.REACT_APP_MOVIES_APIKEY)
+        const data = await fetch('https://api.themoviedb.org/3/movie/upcoming', OPTIONS);
+        console.log(data)
+        if (!data.ok) {
+           throw new Error("Data not foud") 
+        }
+        const json = await data.json();
+        return { response: json.results };
+    } catch (error) {
+       throw error;
+    }
 })
+
 
 const upComingslice = createSlice({
     name: "upcomingMovies",
@@ -21,7 +43,7 @@ const upComingslice = createSlice({
         builder.addCase(getUpcoming.fulfilled, (state, action) => {
             return {
                 ...state,
-                upcomingMovies: action.payload.res,
+                upcomingMovies: action.payload.response,
                 loading: false,
                 errorMessage: null
             }
@@ -37,9 +59,9 @@ const upComingslice = createSlice({
             return {
                 ...state,
                 loading: false,
-                errorMessage: "Try again"
-            }
+                errorMessage: action.error.message
 
+            }
 
 
         })

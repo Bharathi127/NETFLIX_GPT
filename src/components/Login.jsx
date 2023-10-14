@@ -8,8 +8,8 @@ const Login = () => {
     <div>
         <Header/>
         <div >
-            <img
-            className='fixed -z-10'
+            <img 
+            className='fixed w-screen -z-10 h-screen object-cover '
             src={backImg}
             alt=''/>
         </div>

@@ -11,11 +11,15 @@ const MovieCard = ({id, moviepath }) => {
         dispatch(cardBtn())
     }
     return (
-        <div className=' pr-4 w-44 '>
+     
+        <div className=' pr-4 md:w-44 w-32 '>
+            {moviepath &&
             <Link to={`/movie/${id}`}>
             <img src={IMGURL + moviepath} alt="trending" onClick={changeEvent} />
             </Link>
+            }
         </div>
+        
     )
 }
 

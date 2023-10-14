@@ -79,7 +79,7 @@ const Header = () => {
         <div>
             <LogoHeader />
             <form onSubmit={formDataSubmited}
-                className='fixed my-20 mx-auto right-0 left-0 bg-black p-6 w-3/12 text-white bg-opacity-80 '>
+                className='fixed my-20 mx-auto right-0 left-0 bg-black p-6 md:w-3/12 text-white bg-opacity-80 w-[80%]'>
                 {formdata ?
                     <h2 className='font-bold text-3xl mb-2'>Sign Up</h2>
                     : <h2 className='font-bold text-3xl mb-2'>Sign In</h2>
@@ -125,7 +125,7 @@ const Header = () => {
 
                     </div>
                 }
-                <div className='ml-3 mt-3 mb-2 text-gray-400'>
+                <div className='ml-3 mt-3 mb-2 text-gray-400 hidden md:inline-block'>
                     <span >This page is protected by Google reCAPTCHA to ensure you're not a bot.<a href="#" className='text-white hover:underline'> Learn more.</a></span>
                 </div>
 

@@ -21,12 +21,13 @@ const SecondContainer = () => {
   if(!movies)return;
   if(!popular)return;
   if(!topRated)return;
+  if(!upcoming)return
   
   
   return (
    
-    <div className='bg-slate-950'>
-      <div className='-mt-52 relative z-20'>
+    <div className='bg-black'>
+      <div className='md:-mt-48 relative z-20'>
       <MovieList movies={movies} title={"Now Trending Movies"}/>
       <MovieList movies={popular} title={"Popular Movies"}/>
       <MovieList movies={topRated} title={"Top Rated Movies"}/>

@@ -46,18 +46,19 @@ const LogoHeader = () => {
         dispatch(changeLang(e.target.value))
     }
     return (
-        <div className={user?'flex justify-between z-10 w-screen bg-gradient-to-b from-black absolute'
-        :'flex justify-between z-10 w-screen bg-gradient-to-b from-black fixed'}>
+        <div className={user?' flex flex-col md:flex-row z-10 w-screen bg-gradient-to-b from-black absolute '
+        :' flex flex-col md:flex-row z-10 w-screen bg-gradient-to-b from-black fixed'}>
 
-            <div className='w-screen '>
+            <div className='w-screen'>
                 <img
-                    className=' w-44'
+                    className=' md:w-44 w-36 md:p-0 p-3'
                     src={LOGO}
                     alt='logo' />
             </div>
+            <div className='flex md:ml-0 ml-[66%] '>
             {user && showSearchbtn &&
                 <div>
-                    <select className='my-6 py-1 px-3 mr-4 bg-black text-white cursor-pointer hover:bg-purple-700' onChange={changeLanguage}>
+                    <select className='md:my-6 my-1 py-1 md:px-3 mr-4 md:ml-0 bg-black text-white cursor-pointer' onChange={changeLanguage}>
                         <option value="English">English</option>
                         <option value="Hindi">Hindi</option>
                         <option value="spanish">spanish</option>
@@ -67,13 +68,14 @@ const LogoHeader = () => {
                 </div>
             }
             {user && <div>
-                <button className='text-lg mr-60 my-6 py-1 px-3 rounded-lg bg-purple-700 text-white' onClick={eventHandler}>
+                <button className={`text-lg md:ml-0 ${showSearchbtn? 'ml-30':'ml-[20%]'} mr-60 md:my-6 my-1 py-1 px-3 rounded-lg bg-purple-700 text-white`} onClick={eventHandler}>
                     {showSearchbtn ? <Home/> : <GPTSearch/>}</button>
             </div>
             }
-            {user && <div className='absolute top-0 right-0 my-4 font-bold mr-10 text-lg  flex ml-5'>
+            </div>
+            {user && <div className='absolute top-0 right-0 md:my-4 my-4 font-bold  md:mr-10 mr-2 md:text-lg text-sm flex ml-5'>
                 <img
-                    className='w-12 p-2'
+                    className='md:w-12 p-2  w-10'
                     alt="logo"
                     src="https://pluspng.com/img-png/png-user-icon-circled-user-icon-2240.png" />
                 <div className='flex flex-col text-white'>
